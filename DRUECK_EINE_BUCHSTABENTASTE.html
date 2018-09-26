@@ -1,0 +1,78 @@
+<html><head><meta charset="utf-8"/><title>Drück eine Buchstabentaste</title>
+<style>
+button {font-size:200%; border-radius:20}
+.Selbstlaut {background-color:violet}
+.ÄÖÜ {background-color:blue}
+.ziffer {background-color:yellow}
+
+  </style>
+<script>
+
+var worte = new SpeechSynthesisUtterance("Hallo, drück eine Buchstabentaste");
+worte.lang = "de-DE";
+window.speechSynthesis.speak(worte);
+
+function Taste_gedrückt(event) {
+  //alert(Object.getOwnPropertyNames(event));
+  //alert(Object.keys(event));
+  //alert(event.valueOf);
+  var text = event.target.getAttribute("sprich");
+  var worte = new SpeechSynthesisUtterance(text);
+  worte.lang = "de-DE";
+  window.speechSynthesis.speak(worte);
+  }
+  </script>
+  </head>
+<body>
+
+<div>Funktionsauswahl: Zur Zeit nur Sprechen. Später Schreiben, Video starten, Sprachaufnahme, Spiele, und und und...</div>
+
+<div style="display:inline-flex">
+  <span style="display:flex; height:100; width:300"></span>
+  <span style="display:flex; height:100; width:200; border:solid"></span>
+  </div> 
+
+<div id="Tastenfeld" style="font-size:200%" onclick="Taste_gedrückt(event)">
+<button sprich="A wie Antrolopogiestudent" class="Selbstlaut">A</button>
+<button sprich="B wie Biologiestudent">B</button>
+<button sprich="C wie Chemiestudent">C</button>
+<button sprich="D wie Dackel">D</button>
+<button sprich="E wie Eisenbahn" class="Selbstlaut">E</button>
+<button sprich="F wie französische Küche">F</button>
+<button sprich="G wie Geburtstagstorte">G</button>
+<button sprich="H wie holladi io">H</button>
+<button sprich="I wie igitt igitt" class="Selbstlaut">I</button>
+<button sprich="J wie Joghurt">J</button>
+<button sprich="K wie Kakao">K</button>
+<button sprich="L wie Lutscher">L</button>
+<button sprich="M wie Mathematik">M</button>
+<button sprich="N wie Nashorn">N</button>
+<button sprich="O wie Oma und Opa und Obsttorte" class="Selbstlaut">O</button>
+<button sprich="P wie Praline">P</button>
+<button sprich="Q wie Quarktorte">Q</button>
+<button sprich="R wie Rockkonzert">R</button>
+<button sprich="S wie Sahnetorte">S</button>
+<button sprich="T wie Teller">T</button>
+<button sprich="U wie Uhrzeit" class="Selbstlaut">U</button>
+<button sprich="V wie Verstecken spielen">V</button>
+<button sprich="W wie Wie geht es Dir">W</button>
+<button sprich="X wie X">X</button>
+<button sprich="Y wie Y">Y</button>
+<button sprich="Z wie Zauberkunststück">Z</button>
+<button sprich="Ä wie Ärmel" class="ÄÖÜ">Ä</button>
+<button sprich="Ö wie Österreich" class="ÄÖÜ">Ö</button>
+<button sprich="Ü wie überall" class="ÄÖÜ">Ü</button>
+<div>
+<button sprich="1 wie bing" class="Ziffer">1</button>
+<button sprich="2 wie bing dong" class="Ziffer">2</button>
+<button sprich="3 wie bing dong bang" class="Ziffer">3</button>
+<button sprich="4 wie bing dong bang bumm" class="Ziffer">4</button>
+<button sprich="5 wie bing dong bang bumm bumm" class="Ziffer">5</button>
+<button sprich="6 wie bing dong bang bumm bumm rums" class="Ziffer">6</button>
+<button sprich="7 wie bing dong bang bumm bumm rumps boing" class="Ziffer">7</button>
+<button sprich="8 wie bing dong bang bumm bumm rumps boing doing" class="Ziffer">8</button>
+<button sprich="9 wie bing dong bang bumm bumm rumps boing doing dingeling" class="Ziffer">9</button>
+<button sprich="0" class="Ziffer">0</button>
+  </div>
+  </div>
+  </body>
