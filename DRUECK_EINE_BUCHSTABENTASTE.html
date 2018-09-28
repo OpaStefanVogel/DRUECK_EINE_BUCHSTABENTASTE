@@ -1,9 +1,17 @@
 <html><head><meta charset="utf-8"/><title>Drück eine Buchstabentaste</title>
 <style>
 button {font-size:200%; border-radius:20}
+Taste { display: ; 
+  background-color: aqua;
+  margin: 0;
+  padding: 0;
+  font-size: 200%; 
+  border: solid;
+  border-size: 2;
+  }
 .Selbstlaut {background-color:violet}
-.ÄÖÜ {background-color:blue}
-.ziffer {background-color:yellow}
+.ÄÖÜ {background-color: blue}
+.ziffer {background-color: yellow}
 
   </style>
 <script>
@@ -17,6 +25,7 @@ function Taste_gedrückt(event) {
   //alert(Object.keys(event));
   //alert(event.valueOf);
   var text = event.target.getAttribute("sprich");
+  if (text==null) text="daneben";
   var worte = new SpeechSynthesisUtterance(text);
   worte.lang = "de-DE";
   window.speechSynthesis.speak(worte);
@@ -33,46 +42,46 @@ function Taste_gedrückt(event) {
   </div> 
 
 <div id="Tastenfeld" xmlns="https://github.com/OpaStefanVogel?tab=repositories" style="font-size:200%" onclick="Taste_gedrückt(event)">
-<button sprich="A wie Antrolopogiestudent" class="Selbstlaut">A</button>
-<button sprich="B wie Biologiestudent">B</button>
-<button sprich="C wie Chemiestudent">C</button>
-<button sprich="D wie Dackel">D</button>
-<button sprich="E wie Eisenbahn" class="Selbstlaut">E</button>
-<button sprich="F wie französische Küche">F</button>
-<button sprich="G wie Geburtstagstorte">G</button>
-<button sprich="H wie holladi io">H</button>
-<button sprich="I wie igitt igitt" class="Selbstlaut">I</button>
-<button sprich="J wie Joghurt">J</button>
-<button sprich="K wie Kakao">K</button>
-<button sprich="L wie Lutscher">L</button>
-<button sprich="M wie Mathematik">M</button>
-<button sprich="N wie Nashorn">N</button>
-<button sprich="O wie Oma und Opa und Obsttorte" class="Selbstlaut">O</button>
-<button sprich="P wie Praline">P</button>
-<button sprich="Q wie Quarktorte">Q</button>
-<button sprich="R wie Rockkonzert">R</button>
-<button sprich="S wie Sahnetorte">S</button>
-<button sprich="T wie Teller">T</button>
-<button sprich="U wie Uhrzeit" class="Selbstlaut">U</button>
-<button sprich="V wie Verstecken spielen">V</button>
-<button sprich="W wie Wie geht es Dir">W</button>
-<button sprich="X wie X">X</button>
-<button sprich="Y wie Y">Y</button>
-<button sprich="Z wie Zauberkunststück">Z</button>
-<button sprich="Ä wie Ärmel" class="ÄÖÜ">Ä</button>
-<button sprich="Ö wie Österreich" class="ÄÖÜ">Ö</button>
-<button sprich="Ü wie überall" class="ÄÖÜ">Ü</button>
+<Taste sprich="A wie Antrolopogiestudent" class="Selbstlaut">A</Taste>
+<Taste sprich="B wie Biologiestudent">B</Taste>
+<Taste sprich="C wie Chemiestudent">C</Taste>
+<Taste sprich="D wie Dackel">D</Taste>
+<Taste sprich="E wie Eisenbahn" class="Selbstlaut">E</Taste>
+<Taste sprich="F wie französische Küche">F</Taste>
+<Taste sprich="G wie Geburtstagstorte">G</Taste>
+<Taste sprich="H wie holladi io">H</Taste>
+<Taste sprich="I wie igitt igitt" class="Selbstlaut">I</Taste>
+<Taste sprich="J wie Joghurt">J</Taste>
+<Taste sprich="K wie Kakao">K</Taste>
+<Taste sprich="L wie Lutscher">L</Taste>
+<Taste sprich="M wie Mathematik">M</Taste>
+<Taste sprich="N wie Nashorn">N</Taste>
+<Taste sprich="O wie Oma und Opa und Obsttorte" class="Selbstlaut">O</Taste>
+<Taste sprich="P wie Praline">P</Taste>
+<Taste sprich="Q wie Quarktorte">Q</Taste>
+<Taste sprich="R wie Rockkonzert">R</Taste>
+<Taste sprich="S wie Sahnetorte">S</Taste>
+<Taste sprich="T wie Teller">T</Taste>
+<Taste sprich="U wie Uhrzeit" class="Selbstlaut">U</Taste>
+<Taste sprich="V wie Verstecken spielen">V</Taste>
+<Taste sprich="W wie Wie geht es Dir">W</Taste>
+<Taste sprich="X wie X">X</Taste>
+<Taste sprich="Y wie Y">Y</Taste>
+<Taste sprich="Z wie Zauberkunststück">Z</Taste>
+<Taste sprich="Ä wie Ärmel" class="ÄÖÜ">Ä</Taste>
+<Taste sprich="Ö wie Österreich" class="ÄÖÜ">Ö</Taste>
+<Taste sprich="Ü wie überall" class="ÄÖÜ">Ü</Taste>
 <div>
-<button sprich="1 wie bing" class="Ziffer">1</button>
-<button sprich="2 wie bing dong" class="Ziffer">2</button>
-<button sprich="3 wie bing dong bang" class="Ziffer">3</button>
-<button sprich="4 wie bing dong bang bumm" class="Ziffer">4</button>
-<button sprich="5 wie bing dong bang bumm bumm" class="Ziffer">5</button>
-<button sprich="6 wie bing dong bang bumm bumm rums" class="Ziffer">6</button>
-<button sprich="7 wie bing dong bang bumm bumm rumps boing" class="Ziffer">7</button>
-<button sprich="8 wie bing dong bang bumm bumm rumps boing doing" class="Ziffer">8</button>
-<button sprich="9 wie bing dong bang bumm bumm rumps boing doing dingeling" class="Ziffer">9</button>
-<button sprich="0" class="Ziffer">0</button>
+<Taste sprich="1 wie bing" class="Ziffer">1</Taste>
+<Taste sprich="2 wie bing dong" class="Ziffer">2</Taste>
+<Taste sprich="3 wie bing dong bang" class="Ziffer">3</Taste>
+<Taste sprich="4 wie bing dong bang bumm" class="Ziffer">4</Taste>
+<Taste sprich="5 wie bing dong bang bumm bumm" class="Ziffer">5</Taste>
+<Taste sprich="6 wie bing dong bang bumm bumm rums" class="Ziffer">6</Taste>
+<Taste sprich="7 wie bing dong bang bumm bumm rumps boing" class="Ziffer">7</Taste>
+<Taste sprich="8 wie bing dong bang bumm bumm rumps boing doing" class="Ziffer">8</Taste>
+<Taste sprich="9 wie bing dong bang bumm bumm rumps boing doing dingeling" class="Ziffer">9</Taste>
+<Taste sprich="0" class="Ziffer">0</Taste>
   </div>
   </div>
   </body>
