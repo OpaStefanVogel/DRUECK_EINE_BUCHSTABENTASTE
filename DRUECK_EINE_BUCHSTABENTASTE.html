@@ -13,9 +13,22 @@ Taste { display: ;
 .ÄÖÜ {background-color: blue}
 .ziffer {background-color: yellow}
 
+@media only screen and (orientation: landscape) {
+    body {
+        background-color: lightblue;
+    }
+}
+
+@media only screen and (orientation: portrait) {
+    body {
+        background-color: yellow;
+    }
+}
+
   </style>
 <script>
 
+var Funktion="Sprechen";
 var worte = new SpeechSynthesisUtterance("Hallo, drück eine Buchstabentaste");
 worte.lang = "de-DE";
 window.speechSynthesis.speak(worte);
@@ -24,21 +37,53 @@ function Taste_gedrückt(event) {
   //alert(Object.getOwnPropertyNames(event));
   //alert(Object.keys(event));
   //alert(event.valueOf);
-  var text = event.target.getAttribute("sprich");
-  if (text==null) text="daneben";
-  var worte = new SpeechSynthesisUtterance(text);
-  worte.lang = "de-DE";
-  window.speechSynthesis.speak(worte);
+  //alert(Funktion);
+  switch (Funktion) {
+    case "Sprechen": {
+      var text = event.target.getAttribute("sprich");
+      if (text==null) text="daneben";
+      var worte = new SpeechSynthesisUtterance(text);
+      worte.lang = "de-DE";
+      window.speechSynthesis.speak(worte);
+      return;
+      }
+    case "Schreiben": {
+      var text = event.target.firstChild.nodeValue;
+      //alert(text);
+      //alert(document.getElementById("Schreibtext").firstChild);
+      var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
+      //alert(Schreibtext);
+      Schreibtext=Schreibtext+text.trim();
+      document.getElementById("Schreibtext").firstChild.nodeValue=Schreibtext;
+      return;
+      }
+    default: alert("default");
+    }
   }
+
+function machen(event) {
+  switch (Funktion) {
+    case "Schreiben": {
+      var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
+      var worte = new SpeechSynthesisUtterance(Schreibtext);
+      worte.lang = "de-DE";
+      window.speechSynthesis.speak(worte);
+      return;
+      }
+    default: ;
+    }
+  }
+
   </script>
   </head>
 <body>
 
-<div>Funktionsauswahl: Zur Zeit nur Sprechen. Später Schreiben, Video starten, Sprachaufnahme, Spiele, und und und...</div>
+<div>Funktionsauswahl: Zur Zeit nur <button onclick="Funktion='Sprechen'">Sprechen</button> <button onclick="Funktion='Schreiben'">Schreiben</button>. Später noch Video starten, Sprachaufnahme, Spiele, und und und...</div>
 
 <div style="display:inline-flex">
-  <span style="display:flex; height:100; width:300"></span>
-  <span style="display:flex; height:100; width:200; border:solid"></span>
+  <span id="Schreibtext" style="display:flex; height:100; min-width:300; font-size:400%"> </span>
+  <span style="display:flex; height:100; width:200; border:solid" onclick="machen(event)"></span>
+  <!--span style="display:flex; height:100; width:300"></span-->
   </div> 
 
 <div id="Tastenfeld" xmlns="https://github.com/OpaStefanVogel?tab=repositories" style="font-size:200%" onclick="Taste_gedrückt(event)">
