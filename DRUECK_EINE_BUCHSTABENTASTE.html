@@ -29,9 +29,29 @@ Taste { display: ;
 <script>
 
 var Funktion="Sprechen";
-var worte = new SpeechSynthesisUtterance("Hallo, drück eine Buchstabentaste");
+var worte = new SpeechSynthesisUtterance("Hallo und guten Tag, drück eine Buchstabentaste");
 worte.lang = "de-DE";
 window.speechSynthesis.speak(worte);
+
+function Funktionsauswahl(event) {
+  Funktion=event.target.firstChild.nodeValue.trim();
+  //alert(Funktion);
+  document.getElementById("span_Video").setAttribute("style","display:none");
+  document.getElementById("Video").setAttribute("src","");
+  switch (Funktion) {
+    case "Sprechen": {
+      return;
+      }
+    case "Schreiben": {
+      return;
+      }
+    case "Video abspielen": {
+      document.getElementById("span_Video").removeAttribute("style");
+      return;
+      }
+    default: alert("default");
+    }
+  }
 
 function Taste_gedrückt(event) {
   //alert(Object.getOwnPropertyNames(event));
@@ -49,12 +69,22 @@ function Taste_gedrückt(event) {
       }
     case "Schreiben": {
       var text = event.target.firstChild.nodeValue;
+      if (text==null) text="daneben";
+      var worte = new SpeechSynthesisUtterance(text);
+      worte.lang = "de-DE";
+      window.speechSynthesis.speak(worte);
       //alert(text);
       //alert(document.getElementById("Schreibtext").firstChild);
       var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
       //alert(Schreibtext);
       Schreibtext=Schreibtext+text.trim();
       document.getElementById("Schreibtext").firstChild.nodeValue=Schreibtext;
+      return;
+      }
+    case "Video abspielen": {
+      var text = event.target.firstChild.nodeValue.trim();
+      document.getElementById("Video").setAttribute("src","Video_"+text+".mp4");
+      document.getElementById("Video").play();
       return;
       }
     default: alert("default");
@@ -65,7 +95,7 @@ function machen(event) {
   switch (Funktion) {
     case "Schreiben": {
       var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
-      var worte = new SpeechSynthesisUtterance(Schreibtext);
+      var worte = new SpeechSynthesisUtterance(Schreibtext.toLowerCase());
       worte.lang = "de-DE";
       window.speechSynthesis.speak(worte);
       return;
@@ -78,11 +108,16 @@ function machen(event) {
   </head>
 <body>
 
-<div>Funktionsauswahl: Zur Zeit nur <button onclick="Funktion='Sprechen'">Sprechen</button> <button onclick="Funktion='Schreiben'">Schreiben</button>. Später noch Video starten, Sprachaufnahme, Spiele, und und und...</div>
+<div onclick="Funktionsauswahl(event)">Funktionsauswahl: Zur Zeit nur <button>Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button>. Später noch Sprachaufnahme, Spiele, und und und...</div>
 
 <div style="display:inline-flex">
   <span id="Schreibtext" style="display:flex; height:100; min-width:300; font-size:400%"> </span>
-  <span style="display:flex; height:100; width:200; border:solid" onclick="machen(event)"></span>
+  <span style="display:flex; height:100; width:200; border:solid" onclick="machen(event)">
+    <span id="span_Video" style="display:none">
+    <video id="Video" src="Video_E.mp4" 
+      width="200px" height="100px" controls="controls">Video_E.mp4</video>
+      </span>
+    </span>
   <!--span style="display:flex; height:100; width:300"></span-->
   </div> 
 
