@@ -44,13 +44,18 @@ function Funktionsauswahl(event) {
   markiere_Button(event);
   Funktion=event.target.firstChild.nodeValue.trim();
   //alert(Funktion);
+  document.getElementById("span_Sprechen").setAttribute("style","display:none");
+  document.getElementById("span_Schreiben").setAttribute("style","display:none");
   document.getElementById("span_Video").setAttribute("style","display:none");
   document.getElementById("Video").setAttribute("src","");
   switch (Funktion) {
     case "Sprechen": {
+      document.getElementById("span_Sprechen").removeAttribute("style");
+      document.getElementById("span_Sprechen").firstChild.nodeValue=" ";
       return;
       }
     case "Schreiben": {
+      document.getElementById("span_Schreiben").removeAttribute("style");
       return;
       }
     case "Video abspielen": {
@@ -73,6 +78,8 @@ function Taste_gedrückt(event) {
       var worte = new SpeechSynthesisUtterance(text);
       worte.lang = "de-DE";
       window.speechSynthesis.speak(worte);
+      document.getElementById("span_Sprechen").firstChild.nodeValue=
+        event.target.firstChild.nodeValue;
       return;
       }
     case "Schreiben": {
@@ -99,17 +106,16 @@ function Taste_gedrückt(event) {
     }
   }
 
-function machen(event) {
-  switch (Funktion) {
-    case "Schreiben": {
-      var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
-      var worte = new SpeechSynthesisUtterance(Schreibtext.toLowerCase());
-      worte.lang = "de-DE";
-      window.speechSynthesis.speak(worte);
-      return;
-      }
-    default: ;
-    }
+function Vorlesen(event) {
+  var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
+  var worte = new SpeechSynthesisUtterance(Schreibtext.toLowerCase());
+  worte.lang = "de-DE";
+  window.speechSynthesis.speak(worte);
+  return;
+  }
+
+function Loeschen(event) {
+  document.getElementById("Schreibtext").firstChild.nodeValue=" ";
   }
 
   </script>
@@ -120,7 +126,12 @@ function machen(event) {
 
 <div style="display:inline-flex">
   <span id="Schreibtext" style="display:flex; height:100; min-width:300; font-size:400%"> </span>
-  <span style="display:flex; height:100; width:200; border:solid" onclick="machen(event)">
+  <span style="display:flex; height:100; width:200; border:solid; align:center">
+    <span style="font-size:400%;horizontal-align:center;"><span id="span_Sprechen"> </span></span>
+    <span id="span_Schreiben" style="display:none">
+      <button onclick="Vorlesen(event)">Vorlesen</button>
+      <button onclick="Loeschen(event)">Löschen</button>
+      </span>
     <span id="span_Video" style="display:none">
     <video id="Video" src="Video_E.mp4" 
       width="200px" height="100px" controls="controls">Video_E.mp4</video>
