@@ -33,7 +33,15 @@ var worte = new SpeechSynthesisUtterance("Hallo und guten Tag, drück eine Buchs
 worte.lang = "de-DE";
 window.speechSynthesis.speak(worte);
 
+var zuletzt_angeklickt=0;
+function markiere_Button(event) {
+  if (zuletzt_angeklickt!=0) zuletzt_angeklickt.removeAttribute("style"); else document.getElementsByTagName("button")[0].removeAttribute("style");
+  zuletzt_angeklickt=event.target;
+  zuletzt_angeklickt.setAttribute("style","background-color:lightgreen");
+  }
+
 function Funktionsauswahl(event) {
+  markiere_Button(event);
   Funktion=event.target.firstChild.nodeValue.trim();
   //alert(Funktion);
   document.getElementById("span_Video").setAttribute("style","display:none");
@@ -108,7 +116,7 @@ function machen(event) {
   </head>
 <body>
 
-<div onclick="Funktionsauswahl(event)">Funktionsauswahl: Zur Zeit nur <button>Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button>. Später noch Sprachaufnahme, Spiele, und und und...</div>
+<div onclick="Funktionsauswahl(event)">Funktionsauswahl: Zur Zeit nur <button style="background-color:lightgreen">Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button>. Später noch Sprachaufnahme, Spiele, und und und...</div>
 
 <div style="display:inline-flex">
   <span id="Schreibtext" style="display:flex; height:100; min-width:300; font-size:400%"> </span>
