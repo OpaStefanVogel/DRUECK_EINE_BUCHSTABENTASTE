@@ -29,9 +29,13 @@ Taste { display: ;
 <script>
 
 var Funktion="Sprechen";
-var worte = new SpeechSynthesisUtterance("Hallo und guten Tag, drück eine Buchstabentaste");
-worte.lang = "de-DE";
-window.speechSynthesis.speak(worte);
+function Sprich(Text) {
+  var worte = new SpeechSynthesisUtterance(Text);
+  worte.lang = "de-DE";
+  window.speechSynthesis.speak(worte);
+  }
+
+Sprich("Hallo und guten Tag, drück eine Buchstabentaste");
 
 var zuletzt_angeklickt=0;
 function markiere_Button(event) {
@@ -47,19 +51,29 @@ function Funktionsauswahl(event) {
   document.getElementById("span_Sprechen").setAttribute("style","display:none");
   document.getElementById("span_Schreiben").setAttribute("style","display:none");
   document.getElementById("span_Video").setAttribute("style","display:none");
+  document.getElementById("span_Zaehlen").setAttribute("style","display:none");
   document.getElementById("Video").setAttribute("src","");
   switch (Funktion) {
     case "Sprechen": {
+      Sprich("Drück eine Buchstabentaste");
       document.getElementById("span_Sprechen").removeAttribute("style");
       document.getElementById("span_Sprechen").firstChild.nodeValue=" ";
       return;
       }
     case "Schreiben": {
+      Sprich("Tippe ein Wort ein und lass es Dir vorlesen");
       document.getElementById("span_Schreiben").removeAttribute("style");
       return;
       }
     case "Video abspielen": {
+      Sprich("Drück Taste E um ein Video zu Eisenbahn abzuspielen");
       document.getElementById("span_Video").removeAttribute("style");
+      return;
+      }
+    case "Zählen": {
+      Sprich("Wieviele Herzen siehst du? Drück auf eine Zifferntaste.");
+      document.getElementById("span_Zaehlen").removeAttribute("style");
+      neues_Herzbild();
       return;
       }
     default: alert("default");
@@ -75,9 +89,7 @@ function Taste_gedrückt(event) {
     case "Sprechen": {
       var text = event.target.getAttribute("sprich");
       if (text==null) text="daneben";
-      var worte = new SpeechSynthesisUtterance(text);
-      worte.lang = "de-DE";
-      window.speechSynthesis.speak(worte);
+      Sprich(text);
       document.getElementById("span_Sprechen").firstChild.nodeValue=
         event.target.firstChild.nodeValue;
       return;
@@ -85,9 +97,7 @@ function Taste_gedrückt(event) {
     case "Schreiben": {
       var text = event.target.firstChild.nodeValue;
       if (text==null) text="daneben";
-      var worte = new SpeechSynthesisUtterance(text);
-      worte.lang = "de-DE";
-      window.speechSynthesis.speak(worte);
+      Sprich(text);
       //alert(text);
       //alert(document.getElementById("Schreibtext").firstChild);
       var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
@@ -102,15 +112,24 @@ function Taste_gedrückt(event) {
       document.getElementById("Video").play();
       return;
       }
+    case "Zählen": {
+      var text = event.target.firstChild.nodeValue.trim();
+      if (text==null) text="das war daneben und ";
+      //alert(("0123456789").indexOf(text));
+      if (("0123456789").indexOf(text)>-1) {
+        var Ziffer=text*1; //alert(Ziffer+" "+zu_ratende_Zahl);
+        if (Ziffer==zu_ratende_Zahl) Sprich("Die "+text+" stimmt, drück auf das Herzbild."); else Sprich(text+" ist leider nicht richtig, versuche es noch einmal.");
+        if (zu_ratende_Zahl==maximale_Zahl&&maximale_Zahl<9) maximale_Zahl=maximale_Zahl+1;
+        } else Sprich(text+" ist keine Zifferntaste");
+      return;
+      }
     default: alert("default");
     }
   }
 
 function Vorlesen(event) {
   var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
-  var worte = new SpeechSynthesisUtterance(Schreibtext.toLowerCase());
-  worte.lang = "de-DE";
-  window.speechSynthesis.speak(worte);
+  Sprich(Schreibtext.toLowerCase());
   return;
   }
 
@@ -118,11 +137,27 @@ function Loeschen(event) {
   document.getElementById("Schreibtext").firstChild.nodeValue=" ";
   }
 
+var zu_ratende_Zahl=0;
+var maximale_Zahl=3;
+var Herzbild=["♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥"];
+function neues_Herzbild() {
+  for (var i=0;i<Herzbild.length;i++) Herzbild[i]="&nbsp;";
+  var merke=zu_ratende_Zahl;
+  while (merke==zu_ratende_Zahl) zu_ratende_Zahl=Math.round(1+Math.random()*(maximale_Zahl-1));
+  for (var i=0;i<zu_ratende_Zahl;i++) {
+    do var freier_Platz=Math.round(Math.random()*(Herzbild.length-1)); 
+      while (Herzbild[freier_Platz]!="&nbsp;");
+    Herzbild[freier_Platz]="♥";
+    }
+  document.getElementById("Zaehlen").innerHTML=Herzbild.join(" ");
+  //alert(zu_ratende_Zahl);
+  }
+
   </script>
   </head>
 <body>
 
-<div onclick="Funktionsauswahl(event)">Funktionsauswahl: Zur Zeit nur <button style="background-color:lightgreen">Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button>. Später noch Sprachaufnahme, Spiele, und und und...</div>
+<div onclick="Funktionsauswahl(event)">Funktionsauswahl: Zur Zeit nur <button style="background-color:lightgreen">Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button> <button>Zählen</button>, und und und...</div>
 
 <div style="display:inline-flex">
   <span id="Schreibtext" style="display:flex; height:100; min-width:300; font-size:400%"> </span>
@@ -136,6 +171,8 @@ function Loeschen(event) {
     <video id="Video" src="Video_E.mp4" 
       width="200px" height="100px" controls="controls">Video_E.mp4</video>
       </span>
+    <span id="span_Zaehlen" style="display:none"><span id="Zaehlen" style="font-size:200%;color:red" onclick="neues_Herzbild()"> ♥ &nbsp; &nbsp; ♥ 
+      </span></span>
     </span>
   <!--span style="display:flex; height:100; width:300"></span-->
   </div> 
