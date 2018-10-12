@@ -103,6 +103,14 @@ function Taste_gedrückt(event) {
       var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
       //alert(Schreibtext);
       Schreibtext=Schreibtext+text.trim();
+      if (event.target.getAttribute("sprich")=="Leertaste") {
+        Sprich("Leertaste");
+        Schreibtext=Schreibtext+" ";
+        }
+      if (event.target.getAttribute("sprich")=="Zurücktaste") {
+        Sprich("Zurücktaste");
+        Schreibtext=Schreibtext.slice(0,Schreibtext.length-2);
+        }
       document.getElementById("Schreibtext").firstChild.nodeValue=Schreibtext;
       return;
       }
@@ -171,14 +179,14 @@ function neues_Herzbild() {
     <video id="Video" src="Video_E.mp4" 
       width="200px" height="100px" controls="controls">Video_E.mp4</video>
       </span>
-    <span id="span_Zaehlen" style="display:none"><span id="Zaehlen" style="font-size:200%;color:red" onclick="neues_Herzbild()"> ♥ &nbsp; &nbsp; ♥ 
+    <span id="span_Zaehlen" style="display:none"><span id="Zaehlen" style="font-size:200%;color:red; background-color:pink" onclick="neues_Herzbild()"> ♥ &nbsp; &nbsp; ♥ 
       </span></span>
     </span>
   <!--span style="display:flex; height:100; width:300"></span-->
   </div> 
 
 <div id="Tastenfeld" xmlns="https://github.com/OpaStefanVogel?tab=repositories" style="font-size:200%" onclick="Taste_gedrückt(event)">
-<Taste sprich="A wie Antrolopogiestudent" class="Selbstlaut">A</Taste>
+<Taste sprich="A wie Anthropologiestudent" class="Selbstlaut">A</Taste>
 <Taste sprich="B wie Biologiestudent">B</Taste>
 <Taste sprich="C wie Chemiestudent">C</Taste>
 <Taste sprich="D wie Dackel">D</Taste>
@@ -207,6 +215,9 @@ function neues_Herzbild() {
 <Taste sprich="Ä wie Ärmel" class="ÄÖÜ">Ä</Taste>
 <Taste sprich="Ö wie Österreich" class="ÄÖÜ">Ö</Taste>
 <Taste sprich="Ü wie überall" class="ÄÖÜ">Ü</Taste>
+<Taste sprich="Leertaste">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Taste>
+<Taste sprich="esszett">ß</Taste>
+<Taste sprich="Zurücktaste">←</Taste>
 <div>
 <Taste sprich="1 wie bing" class="Ziffer">1</Taste>
 <Taste sprich="2 wie bing dong" class="Ziffer">2</Taste>
