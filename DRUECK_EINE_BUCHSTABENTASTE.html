@@ -26,6 +26,7 @@ Taste { display: ;
 }
 
   </style>
+
 <script>
 
 var Funktion="Sprechen";
@@ -52,7 +53,10 @@ function Funktionsauswahl(event) {
   document.getElementById("span_Schreiben").setAttribute("style","display:none");
   document.getElementById("span_Video").setAttribute("style","display:none");
   document.getElementById("span_Zaehlen").setAttribute("style","display:none");
+  document.getElementById("span_Vogelstimmen").setAttribute("style","display:none");
   document.getElementById("Video").setAttribute("src","");
+  document.getElementById("Vogelstimmen").setAttribute("src","");
+  document.getElementById("span_Vogelbild").setAttribute("style","display:none");
   switch (Funktion) {
     case "Sprechen": {
       Sprich("Drück eine Buchstabentaste");
@@ -74,6 +78,12 @@ function Funktionsauswahl(event) {
       Sprich("Wieviele Herzen siehst du? Drück auf eine Zifferntaste.");
       document.getElementById("span_Zaehlen").removeAttribute("style");
       neues_Herzbild();
+      return;
+      }
+    case "Vogelstimmen": {
+      Sprich("Drück eine Buchstabentaste um eine Vogelstimme zu hören");
+      document.getElementById("span_Vogelstimmen").removeAttribute("style");
+      document.getElementById("span_Vogelbild").removeAttribute("style");
       return;
       }
     default: alert("default");
@@ -131,6 +141,19 @@ function Taste_gedrückt(event) {
         } else Sprich(text+" ist keine Zifferntaste");
       return;
       }
+    case "Vogelstimmen": {
+      var text = event.target.firstChild.nodeValue;
+      if (text==null) text="daneben";
+      var BB=eval("Vogelstimmen."+text);//alert(BB);
+      document.getElementById("Schreibtext").firstChild.nodeValue=BB[0];
+      Sprich(BB[0].toLowerCase());
+      document.getElementById("span_Sprechen").firstChild.nodeValue=
+        event.target.firstChild.nodeValue;
+      document.getElementById("Vogelstimmen").setAttribute("src",Link+BB[1]);
+      document.getElementById("Vogelstimmen").play();
+      document.getElementById("Vogelbild").setAttribute("src",Link+BB[2]);
+      return;
+      }
     default: alert("default");
     }
   }
@@ -147,13 +170,13 @@ function Loeschen(event) {
 
 var zu_ratende_Zahl=0;
 var maximale_Zahl=3;
-var Herzbild=["♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥"];
+var Herzbild=["♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥"];
 function neues_Herzbild() {
   for (var i=0;i<Herzbild.length;i++) Herzbild[i]="&nbsp;";
   var merke=zu_ratende_Zahl;
   while (merke==zu_ratende_Zahl) zu_ratende_Zahl=Math.round(1+Math.random()*(maximale_Zahl-1));
   for (var i=0;i<zu_ratende_Zahl;i++) {
-    do var freier_Platz=Math.round(Math.random()*(Herzbild.length-1)); 
+    do var freier_Platz=Math.round(Math.random()*(Herzbild.length-1));
       while (Herzbild[freier_Platz]!="&nbsp;");
     Herzbild[freier_Platz]="♥";
     }
@@ -161,11 +184,32 @@ function neues_Herzbild() {
   //alert(zu_ratende_Zahl);
   }
 
+var Link="http://www.vogelstimmen.info/Vogelstimmen_GRATIS/";
+Link="";
+var Vogelstimmen={
+  "A":["AMSEL","Amsel_Turdus_merula_G_AMPLE14748101.mp3","IMG-20180816-WA0000.jpg"],
+  "B":["BUCHFINK","Buchfink_Fringilla_coelebs_G_AMPLE-E16361R.mp3","Bild"],
+  "F":["FELDLÄRCHE","Feldlerche_Alauda_arvensis_G_AMPLE-E09331R.mp3","Bild"],
+  "G":["GRÜNFINK","Gruenfink_Carduelis_chloris_G_AMPLE-E16571D.mp3","Bild"],
+  "H":["HAUSSPERLING","Haussperling_Passer_domesticus_G_AMPLE-E1601R.mp3","Bild"],
+  "K":["KOHLMEISE","Kohlmeise_Parus_major_G_AMPLE-E15261R.mp3","Bild"],
+  "M":["MAUERSEGLER","Mauersegler_Apus_apus_R_AMPLE-E08342D.mp3","Bild"],
+  "R":["ROTKEHLCHEN","Rotkehlchen_Erithacus_rubecula_G_AMPLE-E11031D.mp3","Bild"],
+  "S":["SINGDROSSEL","Singdrossel_Turdus_philomelos_G_AMPLE-E10651D.mp3","Bild"],
+  "T":["TURTELTAUBE","Turteltaube_Streptopelia_turtur_G_AMPLE-E07651R.mp3","Bild"],
+  "W":["WANDERDROSSEL","Wanderdrossel_Turdus_migratorius_G_AMPLE-E1071.mp3","Bild"],
+  "":["","","Bild"],
+  
+  }
+//alert(Vogelstimmen.A);
+//alert(Vogelstimmen.B);
+//var ttt="A";eval("alert(Vogelstimmen."+ttt+")");
+
   </script>
   </head>
 <body>
 
-<div onclick="Funktionsauswahl(event)">Funktionsauswahl: Zur Zeit nur <button style="background-color:lightgreen">Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button> <button>Zählen</button>, und und und...</div>
+<div onclick="Funktionsauswahl(event)"><button style="background-color:lightgreen">Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button> <button>Zählen</button> <button>Vogelstimmen</button></div>
 
 <div style="display:inline-flex">
   <span id="Schreibtext" style="display:flex; height:100; min-width:300; font-size:400%"> </span>
@@ -181,7 +225,9 @@ function neues_Herzbild() {
       </span>
     <span id="span_Zaehlen" style="display:none"><span id="Zaehlen" style="font-size:200%;color:red; background-color:pink" onclick="neues_Herzbild()"> ♥ &nbsp; &nbsp; ♥ 
       </span></span>
-    </span>
+    <span id="span_Vogelbild" style="display:none">
+      <img id="Vogelbild" src="IMG-20180816-WA0000.jpg" width="200" height="100"/>
+      </span>
   <!--span style="display:flex; height:100; width:300"></span-->
   </div> 
 
@@ -229,6 +275,9 @@ function neues_Herzbild() {
 <Taste sprich="8 wie bing dong bang bumm bumm rumps boing doing" class="Ziffer">8</Taste>
 <Taste sprich="9 wie bing dong bang bumm bumm rumps boing doing dingeling" class="Ziffer">9</Taste>
 <Taste sprich="0" class="Ziffer">0</Taste>
+    <span id="span_Vogelstimmen" style="display:none">
+      <audio id="Vogelstimmen" src="Amsel_Turdus_merula_G_AMPLE14748101.mp3" controls="controls" volume="1.0"></audio>
+      </span>
   </div>
   </div>
   </body>
