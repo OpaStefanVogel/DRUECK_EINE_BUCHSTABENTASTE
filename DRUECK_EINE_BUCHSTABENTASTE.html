@@ -151,7 +151,7 @@ function Taste_gedrückt(event) {
         event.target.firstChild.nodeValue;
       document.getElementById("Vogelstimmen").setAttribute("src",Link+BB[1]);
       document.getElementById("Vogelstimmen").play();
-      document.getElementById("Vogelbild").setAttribute("src",Link+BB[2]);
+      document.getElementById("Vogelbild").setAttribute("src",BB[2]);
       return;
       }
     default: alert("default");
@@ -185,34 +185,34 @@ function neues_Herzbild() {
   }
 
 var Link="http://www.vogelstimmen.info/Vogelstimmen_GRATIS/";
-Link="";
+//Link="";
 var Vogelstimmen={
-  "A":["AMSEL","Amsel_Turdus_merula_G_AMPLE14748101.mp3","IMG-20180816-WA0000.jpg"],
-  "B":["BUCHFINK","Buchfink_Fringilla_coelebs_G_AMPLE-E16361R.mp3","Bild"],
-  "C":["CHUCKARHUHN","Chukarhuhn_Alectoris_chukar_G_AMPLE-E0408.mp3","Bild"],
-  "D":["DOHLE","Dohle_Corvus_monedula_R_AMPLE-E12521R.mp3","Bild"],
-  "E":["EICHELHÄHER","Eichelhaeher_Garrulus_glandarius_R_AMPLE-E12381W.mp3","Bild"],
-  "F":["FELDLÄRCHE","Feldlerche_Alauda_arvensis_G_AMPLE-E09331R.mp3","Bild"],
-  "G":["GRÜNFINK","Gruenfink_Carduelis_chloris_G_AMPLE-E16571D.mp3","Bild"],
-  "H":["HAUSSPERLING","Haussperling_Passer_domesticus_G_AMPLE-E1601R.mp3","Bild"],
-  "I":["ISABELLSTEINSCHMÄTZER","Isabellsteinschmaetzer_Oenanthe_isabellina_G_AMPLE-E11371R.mp3","Bild"],
-  "J":["JUNGFERNKRANICH","Jungfernkranich_Anthropoides_virgo_R_AMPLE-DR118.mp3","Bild"],
-  "K":["KOHLMEISE","Kohlmeise_Parus_major_G_AMPLE-E15261R.mp3","Bild"],
-  "L":["LACHMÖWE","Lachmoewe_Larus_ridibundus_R_AMPLE-E06278.mp3","Bild"],
-  "M":["MAUERSEGLER","Mauersegler_Apus_apus_R_AMPLE-E08342D.mp3","Bild"],
-  "N":["NACHTIGALL","Nachtigall_Luscinia_megarhynchos_G_AMPLE-E11081A.mp3","Bild"],
-  "O":["OHRENTAUCHER","Ohrentaucher_Podiceps_auritus_R_AMPLE-E01123R.mp3","Bild"],
-  "P":["PIROL","Pirol_Oriolus_oriolus_G_AMPLE-E12611R.mp3","Bild"],
+  "A":["AMSEL","Amsel_Turdus_merula_G_AMPLE14748101.mp3","https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Common_Blackbird.jpg/960px-Common_Blackbird.jpg"],
+  "B":["BUCHFINK","Buchfink_Fringilla_coelebs_G_AMPLE-E16361R.mp3","https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Fringilla_coelebs_%28chaffinch%29%2C_male.jpg/453px-Fringilla_coelebs_%28chaffinch%29%2C_male.jpg"],
+  "C":["CHUCKARHUHN","Chukarhuhn_Alectoris_chukar_G_AMPLE-E0408.mp3","https://upload.wikimedia.org/wikipedia/commons/7/77/Alectoris-chukar-001.jpg"],
+  "D":["DOHLE","Dohle_Corvus_monedula_R_AMPLE-E12521R.mp3","https://upload.wikimedia.org/wikipedia/commons/5/5e/Jackdaw_%287538518858%29.jpg"],
+  "E":["EICHELHÄHER","Eichelhaeher_Garrulus_glandarius_R_AMPLE-E12381W.mp3","https://upload.wikimedia.org/wikipedia/commons/f/fa/Garrulus_glandarius_B_Luc_Viatour.jpg"],
+  "F":["FELDLERCHE","Feldlerche_Alauda_arvensis_G_AMPLE-E09331R.mp3","https://upload.wikimedia.org/wikipedia/commons/d/d8/Alauda_arvensis_2.jpg"],
+  "G":["GRÜNFINK","Gruenfink_Carduelis_chloris_G_AMPLE-E16571D.mp3","https://upload.wikimedia.org/wikipedia/commons/3/35/Greenfinch.jpg"],
+  "H":["HAUSSPERLING","Haussperling_Passer_domesticus_G_AMPLE-E1601R.mp3","https://upload.wikimedia.org/wikipedia/commons/d/d9/House_sparrowII.jpg"],
+  "I":["ISABELLSTEINSCHMÄTZER","Isabellsteinschmaetzer_Oenanthe_isabellina_G_AMPLE-E11371R.mp3","https://upload.wikimedia.org/wikipedia/commons/b/b4/Isabelline_wheatear_%28Oenanthe_isabellina%29_male%2C_non-breeding.jpg"],
+  "J":["JUNGFERNKRANICH","Jungfernkranich_Anthropoides_virgo_R_AMPLE-DR118.mp3","https://upload.wikimedia.org/wikipedia/commons/4/49/Anthropoides_virgo_01.jpg"],
+  "K":["KOHLMEISE","Kohlmeise_Parus_major_G_AMPLE-E15261R.mp3","https://upload.wikimedia.org/wikipedia/commons/d/d2/Parus_major_Luc_Viatour.jpg"],
+  "L":["LACHMÖWE","Lachmoewe_Larus_ridibundus_R_AMPLE-E06278.mp3","https://upload.wikimedia.org/wikipedia/commons/4/41/Lachm%C3%B6we_Chroicocephalus_ridibundus.jpg"],
+  "M":["MAUERSEGLER","Mauersegler_Apus_apus_R_AMPLE-E08342D.mp3","https://upload.wikimedia.org/wikipedia/commons/1/16/Apus_apus_flock_flying_1.jpg"],
+  "N":["NACHTIGALL","Nachtigall_Luscinia_megarhynchos_G_AMPLE-E11081A.mp3","https://upload.wikimedia.org/wikipedia/commons/5/57/Luscinia_megarhynchos_vogelartinfo_chris_romeiks_CHR4443.jpg"],
+  "O":["OHRENTAUCHER","Ohrentaucher_Podiceps_auritus_R_AMPLE-E01123R.mp3","https://upload.wikimedia.org/wikipedia/commons/0/09/Podiceps_auritus_-Scotland-8a_%282%29.jpg"],
+  "P":["PIROL","Pirol_Oriolus_oriolus_G_AMPLE-E12611R.mp3","https://upload.wikimedia.org/wikipedia/commons/6/69/Pirol_m.jpg"],
   "Q":["Q","","Bild"],
-  "R":["ROTKEHLCHEN","Rotkehlchen_Erithacus_rubecula_G_AMPLE-E11031D.mp3","Bild"],
-  "S":["SINGDROSSEL","Singdrossel_Turdus_philomelos_G_AMPLE-E10651D.mp3","Bild"],
-  "T":["TURTELTAUBE","Turteltaube_Streptopelia_turtur_G_AMPLE-E07651R.mp3","Bild"],
-  "U":["UHU","Uhu_Bubo_bubo_G_AMPLE-E07071R.mp3","Bild"],
+  "R":["ROTKEHLCHEN","Rotkehlchen_Erithacus_rubecula_G_AMPLE-E11031D.mp3","https://upload.wikimedia.org/wikipedia/commons/5/5a/Robin_%289509442456%29.jpg"],
+  "S":["SINGDROSSEL","Singdrossel_Turdus_philomelos_G_AMPLE-E10651D.mp3","https://upload.wikimedia.org/wikipedia/commons/6/6e/Song_Thrush_Turdus_philomelos.jpg"],
+  "T":["TURTELTAUBE","Turteltaube_Streptopelia_turtur_G_AMPLE-E07651R.mp3","https://upload.wikimedia.org/wikipedia/commons/8/8b/European_Turtle_Dove_%28Streptopelia_turtur%29.jpg"],
+  "U":["UHU","Uhu_Bubo_bubo_G_AMPLE-E07071R.mp3","https://upload.wikimedia.org/wikipedia/commons/d/d2/Uhu-muc.jpg"],
   "V":["V","","Bild"],
-  "W":["WANDERDROSSEL","Wanderdrossel_Turdus_migratorius_G_AMPLE-E1071.mp3","Bild"],
+  "W":["WANDERDROSSEL","Wanderdrossel_Turdus_migratorius_G_AMPLE-E1071.mp3","https://upload.wikimedia.org/wikipedia/commons/b/b8/Turdus-migratorius-002.jpg"],
   "X":["X","","Bild"],
   "Y":["Y","","Bild"],
-  "Z":["ZAUNKÖNIG","Zaunkoenig_Troglodytes_troglodytes_G_AMPLE-E10091D.mp3","Bild"],
+  "Z":["ZAUNKÖNIG","Zaunkoenig_Troglodytes_troglodytes_G_AMPLE-E10091D.mp3","https://upload.wikimedia.org/wikipedia/commons/4/4c/Eurasian-Wren-Troglodytes-troglodytes.jpg"],
   "Ä":["Ä","","Bild"],
   "Ö":["Ö","","Bild"],
   "Ü":["Ü","","Bild"],
@@ -243,7 +243,7 @@ var Vogelstimmen={
     <span id="span_Zaehlen" style="display:none"><span id="Zaehlen" style="font-size:200%;color:red; background-color:pink" onclick="neues_Herzbild()"> ♥ &nbsp; &nbsp; ♥ 
       </span></span>
     <span id="span_Vogelbild" style="display:none">
-      <img id="Vogelbild" src="IMG-20180816-WA0000.jpg" width="200" height="100"/>
+      <img id="Vogelbild" src="IMG-20180816-WA0000.jpg" style="height:100"/>
       </span>
   <!--span style="display:flex; height:100; width:300"></span-->
   </div> 
@@ -297,4 +297,3 @@ var Vogelstimmen={
       </span>
   </div>
   </div>
-  </body>
