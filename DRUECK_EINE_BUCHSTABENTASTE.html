@@ -99,20 +99,22 @@ function Taste_gedrückt(event) {
     case "Sprechen": {
       var text = event.target.getAttribute("sprich");
       if (text==null) text="daneben";
-      Sprich(text);
       document.getElementById("span_Sprechen").firstChild.nodeValue=
         event.target.firstChild.nodeValue;
+      if (text=='E') text="EH";
+      Sprich(text);
       return;
       }
     case "Schreiben": {
       var text = event.target.firstChild.nodeValue;
       if (text==null) text="daneben";
-      Sprich(text);
       //alert(text);
       //alert(document.getElementById("Schreibtext").firstChild);
       var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
       //alert(Schreibtext);
       Schreibtext=Schreibtext+text.trim();
+      if (text=='E') text="EH";
+      Sprich(text);
       if (event.target.getAttribute("sprich")=="Leertaste") {
         Sprich("Leertaste");
         Schreibtext=Schreibtext+" ";
