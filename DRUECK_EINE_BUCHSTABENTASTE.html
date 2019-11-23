@@ -27,16 +27,57 @@ Taste { display: ;
 
   </style>
 
-<script>
+<script id="scr" type="application/ecmascript">
+var websocket;
+function websocket_verbinden() {
+  websocket = new WebSocket("ws://Radio:1880/ws/Vorlesen","fiktiv");
+  websocket.onerror=function(event) {
+    };
+  websocket.onmessage = function(event) {
+    var w=event.data;
+    //alert(w);
+    Antwort_auswerten(w);
+    };
+  websocket.onopen = function() {
+    //websocket.send('Aktualisieren');
+    //restart_GAP();
+    alert("open");
+    }; 
+  websocket.onclose = function() {
+    //alert(77);
+    websocket.send("close");
+    };
+  }
 
+function wsend(text) {
+  //alert(text);
+  document.getElementById("Antwort").firstChild.nodeValue=text;
+  websocket.send(text);
+  }
+
+function websocket_verbunden() {
+  if (websocket!=0) {
+    document.getElementById("Websocket_Status").firstChild.nodeValue=(["CONNECTING", "OPEN", "CLOSING", "CLOSED"])[websocket.readyState];
+    }
+  }
+setInterval(websocket_verbunden,1000);
+alert(-1);
+  </script>
+
+<script>
+alert(-2);
 var Funktion="Sprechen";
 function Sprich(Text) {
+  //alert(Text);
+  wsend(Text);
+  //alert("vorbei");
   var worte = new SpeechSynthesisUtterance(Text);
   worte.lang = "de-DE";
   window.speechSynthesis.speak(worte);
   }
+alert(-2);
 
-Sprich("Hallo und guten Tag, drück eine Buchstabentaste");
+//Sprich("Hallo und guten Tag, drück eine Buchstabentaste");
 
 var zuletzt_angeklickt=0;
 function markiere_Button(event) {
@@ -44,11 +85,12 @@ function markiere_Button(event) {
   zuletzt_angeklickt=event.target;
   zuletzt_angeklickt.setAttribute("style","background-color:lightgreen");
   }
-
+alert(0);
 function Funktionsauswahl(event) {
+  alert(1);
   markiere_Button(event);
   Funktion=event.target.firstChild.nodeValue.trim();
-  //alert(Funktion);
+  alert(Funktion);
   document.getElementById("span_Sprechen").setAttribute("style","display:none");
   document.getElementById("span_Schreiben").setAttribute("style","display:none");
   document.getElementById("span_Video").setAttribute("style","display:none");
@@ -90,6 +132,23 @@ function Funktionsauswahl(event) {
     }
   }
 
+function ins_Buchstabenfeld(text) {
+      var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
+      //alert(Schreibtext);
+      if (text=='E') text="EH";
+      if (text=='Enter') {Sprich(Schreibtext); Schreibtext=" "}
+        else {Sprich(text); Schreibtext=Schreibtext+text.trim()}
+      if (event.target.getAttribute("sprich")=="Leertaste") {
+        Sprich("Leertaste");
+        Schreibtext=Schreibtext+" ";
+        }
+      if (event.target.getAttribute("sprich")=="Zurücktaste") {
+        Sprich("Zurücktaste");
+        Schreibtext=Schreibtext.slice(0,Schreibtext.length-2);
+        }
+      document.getElementById("Schreibtext").firstChild.nodeValue=Schreibtext;
+  }
+
 function Taste_gedrückt(event) {
   //alert(Object.getOwnPropertyNames(event));
   //alert(Object.keys(event));
@@ -110,20 +169,7 @@ function Taste_gedrückt(event) {
       if (text==null) text="daneben";
       //alert(text);
       //alert(document.getElementById("Schreibtext").firstChild);
-      var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
-      //alert(Schreibtext);
-      Schreibtext=Schreibtext+text.trim();
-      if (text=='E') text="EH";
-      Sprich(text);
-      if (event.target.getAttribute("sprich")=="Leertaste") {
-        Sprich("Leertaste");
-        Schreibtext=Schreibtext+" ";
-        }
-      if (event.target.getAttribute("sprich")=="Zurücktaste") {
-        Sprich("Zurücktaste");
-        Schreibtext=Schreibtext.slice(0,Schreibtext.length-2);
-        }
-      document.getElementById("Schreibtext").firstChild.nodeValue=Schreibtext;
+      ins_Buchstabenfeld(text);
       return;
       }
     case "Video abspielen": {
@@ -226,8 +272,8 @@ var Vogelstimmen={
 
   </script>
   </head>
-<body>
-
+<body onload="websocket_verbinden()">
+<span id="Websocket_Status"> </span> <span id="Antwort"> </span> <input onkeypress="ins_Buchstabenfeld(event.key)"> </input>
 <div onclick="Funktionsauswahl(event)"><button style="background-color:lightgreen">Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button> <button>Zählen</button> <button>Vogelstimmen</button></div>
 
 <div style="display:inline-flex">
