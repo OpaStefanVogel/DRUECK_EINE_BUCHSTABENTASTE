@@ -191,7 +191,7 @@ function Taste_gedrückt(event) {
         } else Sprich(text+" ist keine Zifferntaste");
       return;
       }
-    case "Vogelstimmen": {
+    case "Vogelstimmen": {alert(1);
       var text = event.target.firstChild.nodeValue;
       if (text==null) text="daneben";
       var BB=eval("Vogelstimmen."+text);//alert(BB);
@@ -274,7 +274,7 @@ var Vogelstimmen={
 
   </script>
   </head>
-<body onload="websocket_verbinden()">
+<body onload="websocket_verbinden()" style="user-select:none">
 <span id="Websocket_Status"> </span> <i>(neu: Ausgabe über Radiolautsprecher, benötigt node-red)</i>
 <input onkeydown="if (event.repeat==false) ins_Buchstabenfeld(event.key); event.preventDefault()"> </input>
 <span id="Antwort"> </span>
@@ -300,7 +300,7 @@ var Vogelstimmen={
   <!--span style="display:flex; height:100; width:300"></span-->
   </div> 
 
-<div id="Tastenfeld" xmlns="https://github.com/OpaStefanVogel?tab=repositories" style="font-size:200%" onclick="Taste_gedrückt(event)">
+<div id="Tastenfeld" xmlns="https://github.com/OpaStefanVogel?tab=repositories" style="font-size:200%" onclick="Taste_gedrückt(event);event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()">
 <Taste sprich="A wie Anthropologiestudent" class="Selbstlaut">A</Taste>
 <Taste sprich="B wie Biologiestudent">B</Taste>
 <Taste sprich="C wie Chemiestudent">C</Taste>
