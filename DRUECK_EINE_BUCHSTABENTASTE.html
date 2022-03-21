@@ -81,6 +81,7 @@ function markiere_Button(event) {
   if (zuletzt_angeklickt!=0) zuletzt_angeklickt.removeAttribute("style"); else document.getElementsByTagName("button")[0].removeAttribute("style");
   zuletzt_angeklickt=event.target;
   zuletzt_angeklickt.setAttribute("style","background-color:lightgreen");
+  document.getElementById("input").focus();
   }
 
 function Funktionsauswahl(event) {
@@ -131,6 +132,10 @@ var Sprechtext=" ";
 function ins_Buchstabenfeld(text) {
       var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
       //alert(Schreibtext);
+      if (Funktion=="Vogelstimmen") {
+        Vogelstimme_starten(text);
+        return;
+        }
       if (text=='Enter') {
         if (Schreibtext!=" ") Sprechtext=Schreibtext;
         Sprich(Sprechtext); 
@@ -191,17 +196,10 @@ function Taste_gedrückt(event) {
         } else Sprich(text+" ist keine Zifferntaste");
       return;
       }
-    case "Vogelstimmen": {alert(1);
+    case "Vogelstimmen": {
       var text = event.target.firstChild.nodeValue;
       if (text==null) text="daneben";
-      var BB=eval("Vogelstimmen."+text);//alert(BB);
-      document.getElementById("Schreibtext").firstChild.nodeValue=BB[0];
-      Sprich(BB[0].toLowerCase());
-      document.getElementById("span_Sprechen").firstChild.nodeValue=
-        event.target.firstChild.nodeValue;
-      document.getElementById("Vogelstimmen").setAttribute("src",Link+BB[1]);
-      document.getElementById("Vogelstimmen").play();
-      document.getElementById("Vogelbild").setAttribute("src",BB[2]);
+      Vogelstimme_starten(text);
       return;
       }
     default: alert("default");
@@ -268,15 +266,26 @@ var Vogelstimmen={
   "Ü":["Ü","","Bild"],
   
   }
+
+var Vogelstimme_starten=function(text) {
+  var BB=eval("Vogelstimmen."+text);//alert(BB);
+  document.getElementById("Schreibtext").firstChild.nodeValue=BB[0];
+  Sprich(BB[0].toLowerCase());
+  document.getElementById("span_Sprechen").firstChild.nodeValue=text; //war vorher event.target.firstChild.nodeValue;
+  document.getElementById("Vogelstimmen").setAttribute("src",Link+BB[1]);
+  document.getElementById("Vogelstimmen").play();
+  document.getElementById("Vogelbild").setAttribute("src",BB[2]);
+  document.getElementById("input").focus();
+  }
 //alert(Vogelstimmen.A);
 //alert(Vogelstimmen.B);
 //var ttt="A";eval("alert(Vogelstimmen."+ttt+")");
 
   </script>
   </head>
-<body onload="websocket_verbinden()" style="user-select:none">
+<body onload='websocket_verbinden();document.getElementById("input").focus()' style="user-select:none">
 <span id="Websocket_Status"> </span> <i>(neu: Ausgabe über Radiolautsprecher, benötigt node-red)</i>
-<input onkeydown="if (event.repeat==false) ins_Buchstabenfeld(event.key); event.preventDefault()"> </input>
+<input id="input" onkeydown="if (event.repeat==false) ins_Buchstabenfeld(event.key); event.preventDefault()"> </input>
 <span id="Antwort"> </span>
 <div onclick="Funktionsauswahl(event)"><button style="background-color:lightgreen">Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button> <button>Zählen</button> <button>Vogelstimmen</button></div>
 
