@@ -142,13 +142,13 @@ function ins_Buchstabenfeld(text) {
         Sprich(Sprechtext); 
         Schreibtext=" ";
         } else {
-          Schreibtext=Schreibtext+text.trim()
+          Schreibtext=Schreibtext+text;
           if (text=='E') text="EH";
           Sprich(text); 
           }
       if (event.target.getAttribute("sprich")=="Leertaste") {
         Sprich("Leertaste");
-        Schreibtext=Schreibtext+" ";
+        Schreibtext=Schreibtext+" # ";
         }
       if (event.target.getAttribute("sprich")=="Zurücktaste") {
         Sprich("Zurücktaste");
@@ -292,7 +292,7 @@ var Vogelstimme_starten=function(text) {
 <div onclick="Funktionsauswahl(event)"><button style="background-color:lightgreen">Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button> <button>Zählen</button> <button>Vogelstimmen</button></div>
 
 <div style="display:inline-flex">
-  <span id="Schreibtext" style="display:flex; height:100; min-width:300; font-size:400%"> </span>
+  <span id="Schreibtext" style="display:flex; white-space:pre-wrap; height:100; min-width:300; font-size:400%"> </span>
   <span style="display:flex; height:100; width:200; border:solid; align:center">
     <span style="font-size:400%;horizontal-align:center;"><span id="span_Sprechen"> </span></span>
     <span id="span_Schreiben" style="display:none">
