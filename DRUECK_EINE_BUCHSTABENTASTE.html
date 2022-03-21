@@ -82,6 +82,7 @@ function markiere_Button(event) {
   zuletzt_angeklickt=event.target;
   zuletzt_angeklickt.setAttribute("style","background-color:lightgreen");
   document.getElementById("input").focus();
+  document.getElementById("body").requestFullscreen();
   }
 
 function Funktionsauswahl(event) {
@@ -283,7 +284,8 @@ var Vogelstimme_starten=function(text) {
 
   </script>
   </head>
-<body onload='websocket_verbinden();document.getElementById("input").focus()' style="user-select:none">
+<body onload='websocket_verbinden(); document.getElementById("body").requestFullscreen(); document.getElementById("input").focus()' style="user-select:none">
+<div id="body" style="background-color:lightblue">
 <span id="Websocket_Status"> </span> <i>(neu: Ausgabe über Radiolautsprecher, benötigt node-red)</i>
 <input id="input" onkeydown="if (event.repeat==false) ins_Buchstabenfeld(event.key); event.preventDefault()"> </input>
 <span id="Antwort"> </span>
@@ -360,3 +362,6 @@ var Vogelstimme_starten=function(text) {
     <!--a href="http://opastefanvogel.github.io/PLAUENER_MODELLEISENBAHN/PLAUENER_MODELLEISENBAHN.html">→zur Modelleisenbahn</a-->
   </div>
   </div>
+  </div>
+  </body>
+  </html>
