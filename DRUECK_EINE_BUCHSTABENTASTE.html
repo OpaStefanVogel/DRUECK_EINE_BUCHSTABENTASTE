@@ -131,6 +131,23 @@ function Funktionsauswahl(event) {
 
 var Sprechtext=" ";
 function ins_Buchstabenfeld(text) {
+  var input=document.getElementById("input");
+  if (text=="Backspace") {
+    text="letztes Zeichen löschen";
+    }
+  if (event.key=="Unidentified") {
+    //alert(input.value);
+    text=input.value;
+    }
+  for (var i=0;i<Tastenfeld.length;i++) {
+    if (text==Tastenfeld[i].firstChild.nodeValue) {
+      Tastenfeld[i].setAttribute("style","border-color:darkblue; background-color:white");
+      } else {
+        Tastenfeld[i].removeAttribute("style");
+        }
+    }
+  input.value="";
+  
       var Schreibtext=document.getElementById("Schreibtext").firstChild.nodeValue;
       //alert(Schreibtext);
       if (Funktion=="Vogelstimmen") {
@@ -219,7 +236,7 @@ function Loeschen(event) {
 
 var zu_ratende_Zahl=0;
 var maximale_Zahl=3;
-var Herzbild=["♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥","♥"];
+var Herzbild=[" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "];
 function neues_Herzbild() {
   for (var i=0;i<Herzbild.length;i++) Herzbild[i]="&nbsp;";
   var merke=zu_ratende_Zahl;
@@ -282,12 +299,20 @@ var Vogelstimme_starten=function(text) {
 //alert(Vogelstimmen.B);
 //var ttt="A";eval("alert(Vogelstimmen."+ttt+")");
 
+var Tastenfeld="";
+function body_onload() {
+  document.getElementById("body").requestFullscreen();
+  document.getElementById("input").focus();
+  Tastenfeld=document.getElementsByTagName("Taste");
+  websocket_verbinden();
+  }
+
   </script>
   </head>
-<body onload='websocket_verbinden(); document.getElementById("body").requestFullscreen(); document.getElementById("input").focus()' style="user-select:none">
+<body onload='body_onload()' style="user-select:none">
 <div id="body" style="background-color:lightblue">
 <span id="Websocket_Status"> </span> <i>(neu: Ausgabe über Radiolautsprecher, benötigt node-red)</i>
-<input id="input" onkeydown="if (event.repeat==false) ins_Buchstabenfeld(event.key); event.preventDefault()"> </input>
+<input id="input" onkeyup="if (event.repeat==false) ins_Buchstabenfeld(event.key); event.preventDefault()"> </input>
 <span id="Antwort"> </span>
 <div onclick="Funktionsauswahl(event)"><button style="background-color:lightgreen">Sprechen</button> <button>Schreiben</button> <button>Video abspielen</button> <button>Zählen</button> <button>Vogelstimmen</button></div>
 
